@@ -9,12 +9,14 @@ namespace Microwave.Test.Unit
     public class BuzzerTest
     {
         private Buzzer uut;
-        private IOutput output;
+        private Microwave.Classes.Interfaces.IOutput output; 
+        
 
         [SetUp]
         public void SetUp()
         {
-           // uut = new Buzzer(output);
+            output = Substitute.For<Output>();
+            uut = new Buzzer(output);
 
         }
 

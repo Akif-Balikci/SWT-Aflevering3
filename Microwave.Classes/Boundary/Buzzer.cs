@@ -10,18 +10,18 @@ namespace Microwave.Classes.Boundary
     public class Buzzer : IBuzzer
     {
 
-        private IOutput _myOutput;
+        private IOutput myOutput;
         
         public Buzzer(IOutput Output)
         {
-            _myOutput = Output;
+            myOutput = Output;
         }
 
         public void Buzz()
         {
             for (int i = 0; i <= 3; i++)
             {
-                _myOutput.OutputLine("buuuuuzzzz");
+                myOutput.OutputLine("buuuuuzzzz");
                 Task.Delay(3);
 
             }
