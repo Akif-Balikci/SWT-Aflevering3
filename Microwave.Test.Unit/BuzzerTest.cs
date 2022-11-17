@@ -15,7 +15,7 @@ namespace Microwave.Test.Unit
         [SetUp]
         public void SetUp()
         {
-            output = Substitute.For<Output>();
+            output = Substitute.For<Microwave.Classes.Interfaces.IOutput>();
             uut = new Buzzer(output);
 
         }
@@ -24,7 +24,7 @@ namespace Microwave.Test.Unit
         public void MakeBuzzerSound()
         {
             uut.Buzz();
-            Assert.That(uut.ToString(), Contains.Substring("buuuuuzzzz"));
+            output.Received(3).OutputLine(Arg.Is<string>(str => str.Contains("buuuuuzzzz")));
         }
 
     }
