@@ -153,6 +153,7 @@ namespace Microwave.Classes.Controllers
                     myDisplay.Clear();
                     myLight.TurnOff();
                     // Beep 3 times
+                    myBuzzer.Buzz();
                     myState = States.READY;
                     break;
             }
