@@ -41,9 +41,27 @@ namespace Microwave.App
 
             // The simple sequence should now run
 
-            System.Console.WriteLine("When you press enter, the program will stop");
+            System.Console.WriteLine("When you press enter, the program will stop \n Pressing 'E' will increment timer, 'R' will decrement");
+            ConsoleKeyInfo v;
+            do
+            {
+                v = Console.ReadKey();
+                if (v.Key == ConsoleKey.E)
+                {
+                    //Console.WriteLine("1s added to timer");
+                    timeButton.Press();
+                }
+                if (v.Key == ConsoleKey.Enter)
+                {
+                    System.Environment.Exit(0);
+                }
+                if (v.Key == ConsoleKey.R)
+                {
+                    //Console.WriteLine("1s deducted from timer");
+                }
+            }
+            while (v.Key != ConsoleKey.Escape);
             // Wait for input
-
             System.Console.ReadLine();
         }
     }
