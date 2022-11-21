@@ -24,6 +24,10 @@ namespace Microwave.Classes.Boundary
         {
             myOutput.OutputLine($"Incremented cooking time!");
         }
+        public void DecreasedTime()
+        {
+            myOutput.OutputLine($"Decremented cooking time!");
+        }
         public void Clear()
         {
             myOutput.OutputLine($"Display cleared");

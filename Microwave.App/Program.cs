@@ -57,6 +57,8 @@ namespace Microwave.App
                 }
                 if (v.Key == ConsoleKey.R)
                 {
+                    ui.decrease = true;
+                    timeButton.Press();
                     //Console.WriteLine("1s deducted from timer");
                 }
             }

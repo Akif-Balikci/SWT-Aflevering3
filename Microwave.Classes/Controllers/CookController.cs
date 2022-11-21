@@ -49,6 +49,12 @@ namespace Microwave.Classes.Controllers
             myTimer.Stop();
             myTimer.Start(time);
         }
+        public void RemoveTime(int val)
+        {
+            int time = myTimer.TimeRemaining - val;
+            myTimer.Stop();
+            myTimer.Start(time);
+        }
         public void Stop()
         {
             isCooking = false;
