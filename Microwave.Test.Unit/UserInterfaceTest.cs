@@ -285,7 +285,7 @@ namespace Microwave.Test.Unit
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             // Now in cooking
 
-            // Cooking is done
+            // Cooking is done test
             uut.CookingIsDone();
             buzzer.Received(1).Buzz();
         }
