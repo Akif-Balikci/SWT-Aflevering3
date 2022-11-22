@@ -46,14 +46,16 @@ namespace Microwave.Classes.Controllers
         public void AddTime(int val) //Increases time by stopping and restarting timer (not cooker).
         {
             int time = val + myTimer.TimeRemaining;
-            myTimer.Stop();
-            myTimer.Start(time);
+            //myTimer.Stop();
+            myTimer.TimeRemaining = time;
+            //myTimer.Start(time);
         }
         public void RemoveTime(int val)
         {
             int time = myTimer.TimeRemaining - val;
-            myTimer.Stop();
-            myTimer.Start(time);
+            //myTimer.Stop();
+            myTimer.TimeRemaining = time;
+            //myTimer.Start(time);
         }
         public void Stop()
         {

@@ -2,6 +2,7 @@
 using Microwave.Classes.Interfaces;
 using NUnit.Framework;
 using NSubstitute;
+using System.Net;
 
 namespace Microwave.Test.Unit
 {
@@ -17,6 +18,22 @@ namespace Microwave.Test.Unit
             output = Substitute.For<IOutput>();
             uut = new Display(output);
         }
+
+        [Test]
+        public void IncreasedTime_CorrectOutput()
+        {
+            uut.IncreasedTime();
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Incremented cooking time!")));
+        }
+        [Test]
+        public void DecreasedTime_CorrectOutput()
+        {
+            uut.DecreasedTime();
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Decremented cooking time!")));
+
+        }
+
+
 
         [Test]
         public void ShowTime_ZeroMinuteZeroSeconds_CorrectOutput()

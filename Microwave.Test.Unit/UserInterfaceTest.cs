@@ -40,7 +40,33 @@ namespace Microwave.Test.Unit
                 light,
                 cooker);
         }
-
+        [Test]
+        public void Cooking_IncreaseTime_DisplayRecieve()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now cooking
+            cooker.Received(1).StartCooking(50, 60);
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            display.Received(1).IncreasedTime();
+        }
+        [Test]
+        public void Cooking_DecreaseTime_DisplayRecieve()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now cooking
+            uut.decrease = true;
+            //cooker.Received(1).StartCooking(50, 60);
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            display.Received(1).DecreasedTime();
+        }
         [Test]
         public void Ready_DoorOpen_LightOn()
         {

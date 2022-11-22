@@ -77,12 +77,10 @@ namespace Microwave.Classes.Controllers
                 case States.COOKING: 
                     if (decrease)
                     {
-                        //Console.WriteLine("TEST");
                         myCooker.RemoveTime(1);
                         myDisplay.DecreasedTime();
                         break;
                     }
-                    decrease = false;
                     myCooker.AddTime(1); //Increase time by 1 s
                     myDisplay.IncreasedTime(); //Print to console that time was increased
                     break;

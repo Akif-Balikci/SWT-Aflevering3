@@ -48,8 +48,8 @@ namespace Microwave.App
                 v = Console.ReadKey();
                 if (v.Key == ConsoleKey.E)
                 {
-                    //Console.WriteLine("1s added to timer");
                     timeButton.Press();
+                    ui.decrease = false;
                 }
                 if (v.Key == ConsoleKey.Enter)
                 {
@@ -59,7 +59,6 @@ namespace Microwave.App
                 {
                     ui.decrease = true;
                     timeButton.Press();
-                    //Console.WriteLine("1s deducted from timer");
                 }
             }
             while (v.Key != ConsoleKey.Escape);
