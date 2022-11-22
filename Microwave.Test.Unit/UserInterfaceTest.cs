@@ -63,7 +63,6 @@ namespace Microwave.Test.Unit
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             // Now cooking
             uut.decrease = true;
-            //cooker.Received(1).StartCooking(50, 60);
             timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             display.Received(1).DecreasedTime();
         }
