@@ -36,17 +36,14 @@ namespace Microwave.Test.Unit
         {
             uut.StartCooking(50, 60); //Ensure stats are correct
             timer.TimeRemaining.Returns(60);
-            //timer.TimeRemaining.Returns(60); //Ensure time remaining is set (doesnt work without
             uut.RemoveTime(20);
             Assert.That(timer.TimeRemaining, Is.EqualTo(40));
-            //timer.Received().Start(40);
         }
         [Test]
         public void Cooking_AddTime()
         {
             uut.StartCooking(50, 40); //Ensure stats are correct
             timer.TimeRemaining.Returns(40); //Doesnt work without. Is timer properly instantiated. 
-            //timer.TimeRemaining.Returns(40); //Ensure time remaining is set (doesnt work without
             uut.AddTime(20);
             Assert.That(timer.TimeRemaining, Is.EqualTo(60));
         }
