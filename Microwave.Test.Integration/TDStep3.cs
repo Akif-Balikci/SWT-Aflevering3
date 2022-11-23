@@ -240,7 +240,6 @@ namespace Microwave.Test.Integration
             startCancelButton.Press();
 
             Thread.Sleep(60500);  // Wait for a minute
-
             // End of cooking is indicated by ligth being turned off
             output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("Light is turned off")));
 
