@@ -24,6 +24,11 @@ namespace Microwave.Classes.Controllers
             UI = ui;
         }
 
+        public int GetMaxPower()
+        {
+            return myPowerTube.GetmaxPower();
+        }
+
         public CookController(
             ITimer timer,
             IDisplay display,

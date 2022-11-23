@@ -9,14 +9,28 @@ namespace Microwave.Classes.Boundary
 
         private bool IsOn = false;
 
-        public PowerTube(IOutput output)
+        public int MaxPower { get; set; } = 1000;
+
+        public PowerTube(IOutput output, int maxpower)
         {
             myOutput = output;
+            MaxPower = maxpower;
+        }
+
+        public int GetmaxPower()
+        {
+            return MaxPower;
+        }
+
+        public void SetMaxPower(int maxPower)
+        {
+            if (maxPower < 1 || 1001 < maxPower)
+                throw new ArgumentOutOfRangeException("the Power", MaxPower, $"Must be between 1 and 100");
         }
 
         public void TurnOn(int power)
         {
-            if (power < 1 || 700 < power)
+            if (power < 1 || MaxPower < power)
             {
                 throw new ArgumentOutOfRangeException("power", power, "Must be between 1 and 700 (incl.)");
             }
@@ -39,5 +53,7 @@ namespace Microwave.Classes.Boundary
 
             IsOn = false;
         }
+
+
     }
 }
