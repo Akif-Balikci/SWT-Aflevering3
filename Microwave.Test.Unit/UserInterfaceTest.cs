@@ -242,7 +242,7 @@ namespace Microwave.Test.Unit
             int maxPowerTest = maxxp;
             cooker.GetMaxPower().Returns(maxPowerTest);
 
-            for (int i = 50; i <= 700; i += 50)
+            for (int i = 50; i <= maxPowerTest; i += 50)
             {
                 powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             }
