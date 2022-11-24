@@ -229,7 +229,7 @@ namespace Microwave.Test.Unit
             // Should call with correct values
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            cooker.Received(1).StartCooking(100, 120);
+            cooker.Received(1).StartCooking(300, 60);
         }
 
         [TestCase(300)]
@@ -237,9 +237,9 @@ namespace Microwave.Test.Unit
         [TestCase(700)]
         [TestCase(800)]
         [TestCase(1000)]
-        public void Ready_FullPower_CookerIsCalledCorrectly(int MaxPowerTest)
+        public void Ready_FullPower_CookerIsCalledCorrectly(int maxxp)
         {
-            int maxPowerTest = MaxPowerTest;
+            int maxPowerTest = maxxp;
             cooker.GetMaxPower().Returns(maxPowerTest);
 
             for (int i = 50; i <= 700; i += 50)
@@ -253,7 +253,7 @@ namespace Microwave.Test.Unit
             // Should call with correct values
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            cooker.Received(1).StartCooking(MaxPowerTest, 60);
+            cooker.Received(1).StartCooking(maxxp, 60);
 
         }
 
