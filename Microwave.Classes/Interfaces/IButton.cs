@@ -9,7 +9,6 @@ namespace Microwave.Classes.Interfaces
     public interface IButton
     {
         event EventHandler Pressed;
-
         void Press();
     }
 }
