@@ -23,6 +23,7 @@ namespace Microwave.Test.Integration
         private Light light;
         private Display display;
         private CookController cooker;
+        private Buzzer buzzer;
 
         private PowerTube powerTube;
         private Timer timer;
@@ -46,8 +47,9 @@ namespace Microwave.Test.Integration
 
 
             cooker = new CookController(timer, display, powerTube);
+            buzzer = new Buzzer(output);
 
-            ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
+            ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker, buzzer);
             cooker.UI = ui;
         }
 
@@ -152,6 +154,8 @@ namespace Microwave.Test.Integration
             light = new Light(output);
             display = new Display(output);
             powerTube = new PowerTube(output);
+            buzzer = new Buzzer(output);
+
             var faketimer = Substitute.For<ITimer>();
 
             // Make a new cooker, with the 
@@ -159,7 +163,7 @@ namespace Microwave.Test.Integration
             // Then we must make a new UI
             ui = new UserInterface(
                 powerButton, timeButton, startCancelButton,
-                door, display, light, cooker);
+                door, display, light, cooker, buzzer);
             // And make the association
             cooker.UI = ui;
 
@@ -240,7 +244,6 @@ namespace Microwave.Test.Integration
             startCancelButton.Press();
 
             Thread.Sleep(60500);  // Wait for a minute
-
             // End of cooking is indicated by ligth being turned off
             output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("Light is turned off")));
 

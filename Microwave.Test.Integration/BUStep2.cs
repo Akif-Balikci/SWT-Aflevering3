@@ -26,6 +26,8 @@ namespace Microwave.Test.Integration
         private IButton timeButton;
         private IButton startCancelButton;
 
+        private IBuzzer buzzer;
+
         private IDoor door;
 
         [SetUp]
@@ -47,11 +49,12 @@ namespace Microwave.Test.Integration
 
             cooker = new CookController(timer, display, powerTube);
 
+            buzzer = new Buzzer(output);
 
             ui = new UserInterface(
                 powerButton, timeButton, startCancelButton,
                 door, 
-                display, light, cooker);
+                display, light, cooker, buzzer);
 
             cooker.UI = ui;
 
@@ -112,6 +115,45 @@ namespace Microwave.Test.Integration
 
         #region UserInterface_CookController
 
+        [Test]
+        public void UserInterface_CookController_IncreaseTime()
+        {
+            powerButton.Pressed += Raise.Event();
+            timeButton.Pressed += Raise.Event();
+            startCancelButton.Pressed += Raise.Event();
+            timeButton.Pressed += Raise.Event();
+            timeButton.Pressed += Raise.Event();
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Incremented cooking time!")));
+        }
+        [Test]
+        public void UserInterface_CookController_DecreaseTime()
+        {
+            powerButton.Pressed += Raise.Event();
+            timeButton.Pressed += Raise.Event();
+            startCancelButton.Pressed += Raise.Event();
+            ui.decrease = true;
+            timeButton.Pressed += Raise.Event();
+            timeButton.Pressed += Raise.Event();
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Decremented cooking time!")));
+        }
+
+        //Ensures system stops when decrementing alot
+        [Test] 
+        public void UserInterface_CookController_StopCooking()
+        {
+            ui.decrease = true;
+            powerButton.Pressed += Raise.Event();
+            timeButton.Pressed += Raise.Event();
+            startCancelButton.Pressed += Raise.Event();
+            for (int i = 0; i < 62; i++)
+            {
+                timeButton.Pressed += Raise.Event();
+            }
+            Thread.Sleep(1050); //Wait for tick, and the system to realize its done
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("PowerTube turned off")));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Display cleared")));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Light is turned off")));
+        }
         [Test]
         public void UserInterface_CookController_StartCooking_50W()
         {

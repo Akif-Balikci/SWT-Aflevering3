@@ -24,11 +24,13 @@ namespace Microwave.App
 
             Light light = new Light(output);
 
+            Buzzer buzzer = new Buzzer(output);
+
             Microwave.Classes.Boundary.Timer timer = new Timer();
 
             CookController cooker = new CookController(timer, display, powerTube);
 
-            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
+            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker, buzzer );
 
             // Finish the double association
             cooker.UI = ui;
@@ -43,9 +45,28 @@ namespace Microwave.App
 
             // The simple sequence should now run
 
-            System.Console.WriteLine("When you press enter, the program will stop");
+            System.Console.WriteLine("When you press enter, the program will stop \n Pressing 'E' will increment timer, 'R' will decrement");
+            ConsoleKeyInfo v;
+            do
+            {
+                v = Console.ReadKey();
+                if (v.Key == ConsoleKey.E)
+                {
+                    timeButton.Press();
+                    ui.decrease = false;
+                }
+                if (v.Key == ConsoleKey.Enter)
+                {
+                    System.Environment.Exit(0);
+                }
+                if (v.Key == ConsoleKey.R)
+                {
+                    ui.decrease = true;
+                    timeButton.Press();
+                }
+            }
+            while (v.Key != ConsoleKey.Escape);
             // Wait for input
-
             System.Console.ReadLine();
         }
     }

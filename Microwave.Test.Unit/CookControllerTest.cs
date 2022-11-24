@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
@@ -23,9 +24,30 @@ namespace Microwave.Test.Unit
             timer = Substitute.For<ITimer>();
             display = Substitute.For<IDisplay>();
             powerTube = Substitute.For<IPowerTube>();
-
             uut = new CookController(timer, display, powerTube, ui);
         }
+
+
+        //Since Adding/Removing time uses the existing technology implemented and tested for the timer, there's no
+        //point double-testing if oven shuts down when timer expires. Just need to ensure timer gets time added and decremented correctly
+
+        [Test]
+        public void Cooking_RemoveTime()
+        {
+            uut.StartCooking(50, 60); //Ensure stats are correct
+            timer.TimeRemaining.Returns(60);
+            uut.RemoveTime(20);
+            Assert.That(timer.TimeRemaining, Is.EqualTo(40));
+        }
+        [Test]
+        public void Cooking_AddTime()
+        {
+            uut.StartCooking(50, 40); //Ensure stats are correct
+            timer.TimeRemaining.Returns(40); //Doesnt work without. Is timer properly instantiated. 
+            uut.AddTime(20);
+            Assert.That(timer.TimeRemaining, Is.EqualTo(60));
+        }
+
 
         [Test]
         public void StartCooking_ValidParameters_TimerStarted()

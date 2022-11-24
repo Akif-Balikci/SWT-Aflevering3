@@ -16,6 +16,8 @@ namespace Microwave.Classes.Controllers
         private ICookController myCooker;
         private ILight myLight;
         private IDisplay myDisplay;
+        public bool decrease = false; //Differentiates between decreasing and increasing timer from user input.
+        private IBuzzer myBuzzer;
 
         private int powerLevel = 50;
         private int time = 1;
@@ -27,7 +29,8 @@ namespace Microwave.Classes.Controllers
             IDoor door,
             IDisplay display,
             ILight light,
-            ICookController cooker)
+            ICookController cooker,
+            IBuzzer buzzer)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed);
@@ -39,6 +42,7 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
+            myBuzzer = buzzer;
         }
 
         private void ResetValues()
@@ -70,9 +74,19 @@ namespace Microwave.Classes.Controllers
                     myDisplay.ShowTime(time, 0);
                     myState = States.SETTIME;
                     break;
-                case States.SETTIME:
+                case States.SETTIME: //Could make it go up non-linearly
                     time += 1;
                     myDisplay.ShowTime(time, 0);
+                    break;
+                case States.COOKING: 
+                    if (decrease)
+                    {
+                        myCooker.RemoveTime(1);
+                        myDisplay.DecreasedTime();
+                        break;
+                    }
+                    myCooker.AddTime(1); //Increase time by 1 s
+                    myDisplay.IncreasedTime(); //Print to console that time was increased
                     break;
             }
         }
@@ -150,6 +164,7 @@ namespace Microwave.Classes.Controllers
                     myDisplay.Clear();
                     myLight.TurnOff();
                     // Beep 3 times
+                    myBuzzer.Buzz();
                     myState = States.READY;
                     break;
             }
