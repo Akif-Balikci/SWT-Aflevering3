@@ -17,6 +17,8 @@ namespace Microwave.Classes.Controllers
         private ILight myLight;
         private IDisplay myDisplay;
         public bool decrease = false; //Differentiates between decreasing and increasing timer from user input.
+        private IBuzzer myBuzzer;
+
         private int powerLevel = 50;
         private int time = 1;
 
@@ -27,7 +29,8 @@ namespace Microwave.Classes.Controllers
             IDoor door,
             IDisplay display,
             ILight light,
-            ICookController cooker)
+            ICookController cooker,
+            IBuzzer buzzer)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed);
@@ -39,6 +42,7 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
+            myBuzzer = buzzer;
         }
 
         private void ResetValues()
@@ -160,6 +164,7 @@ namespace Microwave.Classes.Controllers
                     myDisplay.Clear();
                     myLight.TurnOff();
                     // Beep 3 times
+                    myBuzzer.Buzz();
                     myState = States.READY;
                     break;
             }
