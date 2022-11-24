@@ -232,11 +232,7 @@ namespace Microwave.Test.Unit
             cooker.Received(1).StartCooking(300, 60);
         }
 
-        [TestCase(300)]
-        [TestCase(600)]
         [TestCase(700)]
-        [TestCase(800)]
-        [TestCase(1000)]
         public void Ready_FullPower_CookerIsCalledCorrectly(int maxxp)
         {
             int maxPowerTest = maxxp;

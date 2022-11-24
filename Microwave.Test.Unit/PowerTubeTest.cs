@@ -41,6 +41,7 @@ namespace Microwave.Test.Unit
             Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.TurnOn(power));
         }
 
+
         [Test]
         public void TurnOff_WasOn_CorrectOutput()
         {
