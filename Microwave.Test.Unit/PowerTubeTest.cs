@@ -65,14 +65,17 @@ namespace Microwave.Test.Unit
         }
 
 
-        [Test]
+        [TestCase]
         public void GetMaxPowerCheckDefaultAndCorrectValue()
         {
             Assert.That(uut.GetmaxPower(),Is.EqualTo(1000));
         }
 
-
+        [TestCase(1)]
+        [TestCase(700)]
         [TestCase(1000)]
+        [TestCase(2600)]
+        [TestCase(3000)]
         public void SetGetMaxValueCorrect(int SetPower)
         {
             uut.SetMaxPower(SetPower);
@@ -85,9 +88,9 @@ namespace Microwave.Test.Unit
         [TestCase(1500)]
         [TestCase(1700)]
 
-        public void SetMaxPowerOutOfRangeException(int SetMaxPower)
+        public void SetMaxPowerOutOfRangeException(int SetPower)
         {
-            Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.SetMaxPower(SetMaxPower));
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.SetMaxPower(SetPower));
         }
 
 

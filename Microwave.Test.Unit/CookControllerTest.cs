@@ -83,7 +83,7 @@ namespace Microwave.Test.Unit
             powerTube.Received().TurnOff();
         }
 
-        [Test]
+        [TestCase(100)]
         public void CookerCheckMaxPower(int maxPower)
         {
             powerTube.GetmaxPower().Returns(maxPower);
