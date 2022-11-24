@@ -1,4 +1,5 @@
-﻿using Microwave.Classes.Boundary;
+﻿using System;
+using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NSubstitute.Core.Arguments;
@@ -23,7 +24,7 @@ namespace Microwave.Test.Unit
         [TestCase(50)]
         [TestCase(100)]
         [TestCase(699)]
-        [TestCase(700)]
+        [TestCase(1000)]
         public void TurnOn_WasOffCorrectPower_CorrectOutput(int power)
         {
             uut.TurnOn(power);
@@ -61,5 +62,37 @@ namespace Microwave.Test.Unit
             uut.TurnOn(50);
             Assert.Throws<System.ApplicationException>(() => uut.TurnOn(60));
         }
+
+
+        [Test]
+        public void GetMaxPowerCheckDefaultAndCorrectValue()
+        {
+            Assert.That(uut.GetmaxPower(),Is.EqualTo(1000));
+        }
+
+        [TestCase(1)]
+        [TestCase(300)]
+        [TestCase(600)]
+        [TestCase(1000)]
+        [TestCase(1100)]
+
+        public void SetGetMaxValueCorrect(int SetPower)
+        {
+            uut.SetMaxPower(SetPower);
+            Assert.That(uut.GetmaxPower(), Is.EqualTo(SetPower));
+        }
+
+        [TestCase(-100)]
+        [TestCase(-10)]
+        [TestCase(0)]
+        [TestCase(1500)]
+        [TestCase(1700)]
+
+        public void SetMaxPowerOutOfRangeException(int SetMaxPower)
+        {
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.SetMaxPower(SetMaxPower));
+        }
+
+
     }
 }
