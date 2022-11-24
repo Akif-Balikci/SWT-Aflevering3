@@ -75,8 +75,8 @@ namespace Microwave.Test.Unit
         [TestCase(-100)]
         [TestCase(-10)]
         [TestCase(0)]
-        [TestCase(1500)]
-        [TestCase(1700)]
+        [TestCase(4000)]
+        [TestCase(5000)]
 
         public void SetMaxPowerOutOfRangeException(int SetPower)
         {
