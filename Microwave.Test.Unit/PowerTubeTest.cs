@@ -24,7 +24,7 @@ namespace Microwave.Test.Unit
         [TestCase(50)]
         [TestCase(100)]
         [TestCase(699)]
-        [TestCase(1000)]
+        [TestCase(700)]
         public void TurnOn_WasOffCorrectPower_CorrectOutput(int power)
         {
             uut.TurnOn(power);
@@ -71,16 +71,6 @@ namespace Microwave.Test.Unit
             Assert.That(uut.GetmaxPower(),Is.EqualTo(1000));
         }
 
-        [TestCase(1)]
-        [TestCase(700)]
-        [TestCase(1000)]
-        [TestCase(2600)]
-        [TestCase(3000)]
-        public void SetGetMaxValueCorrect(int SetPower)
-        {
-            uut.SetMaxPower(SetPower);
-            Assert.That(uut.GetmaxPower(), Is.EqualTo(SetPower));
-        }
 
         [TestCase(-100)]
         [TestCase(-10)]
