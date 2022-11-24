@@ -10,6 +10,8 @@ namespace Microwave.Classes.Interfaces
     {
         void ShowTime(int minutes, int seconds);
         void ShowPower(int power);
+        void IncreasedTime();
+        void DecreasedTime();
         void Clear();
     }
 }

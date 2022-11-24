@@ -16,6 +16,7 @@ namespace Microwave.Classes.Controllers
         private ICookController myCooker;
         private ILight myLight;
         private IDisplay myDisplay;
+        public bool decrease = false; //Differentiates between decreasing and increasing timer from user input.
         private IBuzzer myBuzzer;
 
         private int powerLevel = 50;
@@ -73,9 +74,19 @@ namespace Microwave.Classes.Controllers
                     myDisplay.ShowTime(time, 0);
                     myState = States.SETTIME;
                     break;
-                case States.SETTIME:
+                case States.SETTIME: //Could make it go up non-linearly
                     time += 1;
                     myDisplay.ShowTime(time, 0);
+                    break;
+                case States.COOKING: 
+                    if (decrease)
+                    {
+                        myCooker.RemoveTime(1);
+                        myDisplay.DecreasedTime();
+                        break;
+                    }
+                    myCooker.AddTime(1); //Increase time by 1 s
+                    myDisplay.IncreasedTime(); //Print to console that time was increased
                     break;
             }
         }
