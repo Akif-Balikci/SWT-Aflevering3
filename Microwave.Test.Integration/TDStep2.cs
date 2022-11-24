@@ -48,6 +48,9 @@ namespace Microwave.Test.Integration
 
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker, buzzer);
             cooker.UI = ui;
+
+            powerTube.SetMaxPower(1000);
+            powerTube.GetmaxPower().Returns(1000);
         }
 
         #region UI_Light
